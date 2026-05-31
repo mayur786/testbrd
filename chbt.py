@@ -8,7 +8,6 @@ import os
 # CONFIG
 # -------------------
 
-API_KEY = "YOUR_OPENROUTER_KEY"
 
 MODEL = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 
@@ -111,7 +110,7 @@ if prompt:
     response = client.chat.completions.create(
         model=MODEL,
         messages=st.session_state.messages[-20:],
-        max_tokens=700
+        max_tokens=100
     )
 
     answer = response.choices[0].message.content
@@ -128,7 +127,8 @@ if prompt:
     else:
         answer = str(content)
         
-    st.session_state.question_count += 1
+    if st.session_state.question_count < 10:
+        st.session_state.question_count += 1
 
     st.session_state.messages.append(
         {
@@ -155,51 +155,69 @@ if prompt:
         f.write(
             f"BOT: {answer}\n"
         )
-
 # -------------------
 # EXPORT BRD
 # -------------------
+
 if st.session_state.question_count >= 10:
-    if st.button("Generate BRD"):
-        ...   
-    if st.button("Generate BRD"):
-    
+
+    if st.button("Generate BRD", key="generate_brd"):
+
         brd_prompt = """
-    Using the entire conversation,
-    create a BRD with:
-    1 Is this first time data requirement
-    2 Did you check any powerBI dashboad 
-    3 Problem Statement
-    4 Business Requirements
-    5 Who need this data in senior management
-    6 What is ETA
-    7 did you work closely with any Data Science Team
-    8 Has anyone delivered this data in past
-    9 Do you need PII information
-    10 Success Criteria
-    """
-    
+Using the entire conversation, create a BRD.
+
+    1. Is this first time data requirement?
+    2. Did you check any Power BI dashboard?
+    3. Problem Statement
+    4. Business Requirements
+    5. Who needs this data in senior management?
+    6. What is the ETA?
+    7. Did you work closely with any Data Science Team?
+    8. Has anyone delivered this data in the past?
+    9. Do you need PII information?
+    10. Success Criteria
+If information is missing, write:
+Information Not Provided.
+"""
+
         response = client.chat.completions.create(
             model=MODEL,
-            messages=
-            st.session_state.messages +
-            [
+            messages=st.session_state.messages + [
                 {
                     "role": "user",
                     "content": brd_prompt
                 }
             ],
-            max_tokens=700
+            max_tokens=1000
         )
-    
-        brd = response.choices[0].message.content
-    
+
+        content = response.choices[0].message.content
+
+        if isinstance(content, str):
+            brd = content
+        elif isinstance(content, list):
+            brd = " ".join(
+                item.get("text", "")
+                for item in content
+                if isinstance(item, dict)
+            )
+        else:
+            brd = str(content)
+
         st.subheader("Generated BRD")
-    
-        st.write(brd)
+
+        st.markdown(brd)
+
         st.download_button(
-            label=" Download BRD",
-            data=brd,
-            file_name="generated_brd.txt",
-            mime="text/plain"
+            "Download BRD",
+            brd,
+            "generated_brd.txt",
+            "text/plain",
+            key="download_brd"
         )
+
+else:
+
+    st.info(
+        f"Please answer {10 - st.session_state.question_count} more questions before generating BRD."
+    )
