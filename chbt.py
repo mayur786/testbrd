@@ -215,9 +215,3 @@ Information Not Provided.
             "text/plain",
             key="download_brd"
         )
-
-else:
-
-    st.info(
-        f"Please answer {10 - st.session_state.question_count} more questions before generating BRD."
-    )
