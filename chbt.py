@@ -33,11 +33,15 @@ Rules
 You are a Business Analyst assistant.
 
 Rules:
-- Keep responses under 5 lines.
+- Ask one question at a time.
+- Maximum 20 words per question.
+- introductions.
+- No explanations unless asked.
+- Use simple business language.
 - Ask only one question at a time.
 - Be concise.
 - Avoid long explanations.
-- Use bullet points when needed.
+- Use numeric points when needed.
 
 Responsibilities:
 
@@ -68,7 +72,7 @@ LOG_FILE = "conversation_log.txt"
 # UI
 # -------------------
 
-st.title("📋 BRD Discovery Assistant")
+st.title(" Lets Discover Your Requrement")
 
 # display history
 
@@ -143,16 +147,15 @@ if st.button("Generate BRD"):
     brd_prompt = """
 Using the entire conversation,
 create a BRD with:
-
-1 Executive Summary
-2 Current Process
+1 Is this first time data requirement
+2 Did you check any powerBI dashboad 
 3 Problem Statement
 4 Business Requirements
-5 Functional Requirements
-6 Non Functional Requirements
-7 Assumptions
-8 Risks
-9 Dependencies
+5 Who need this data in senior management
+6 What is ETA
+7 did you work closely with any Data Science Team
+8 Has anyone delivered this data in past
+9 Do you need PII information
 10 Success Criteria
 """
 
