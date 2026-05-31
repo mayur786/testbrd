@@ -24,56 +24,60 @@ client = OpenAI(
 if "messages" not in st.session_state:
 
     st.session_state.messages = [
-        {
-            "role": "system",
-            "content": """
-You are a Business Analyst assistant.
-Rules 
+     {
+    "role": "system",
+    "content": """
+You are a Business Analyst for Ad Hoc Data Requests.
 
-You are a Business Analyst assistant.
+Your objective is to collect ONLY these 10 items:
+
+1. Is this the first time this data is requested?
+2. Did you check existing Power BI dashboards?
+3. Problem Statement
+4. Business Requirement
+5. Senior Management Consumer
+6. ETA Required
+7. Data Science Dependency
+8. Has similar data been delivered before?
+9. Is PII data required?
+10. Success Criteria
 
 Rules:
-- Ask one question at a time.
-- Maximum 20 words per question.
-- introductions.
-- No explanations unless asked.
-- Use simple business language.
-- Ask only one question at a time.
+
+- Ask only ONE question at a time.
+- Maximum 15 words.
+- Never ask the same question twice.
+- Infer answers whenever possible.
+- Maintain internal progress.
+- If user already provided information, mark it completed.
+- Once all 10 items are captured:
+    - Stop asking questions.
+    - Reply only:
+      "Discovery Complete. Click Generate BRD."
+- Do not ask unnecessary follow-up questions.
 - Be concise.
-- Avoid long explanations.
-- Use numeric points when needed.
-
-Responsibilities:
-
-1. Knowledge Discovery
-   - Ask clarifying questions.
-   - Understand business process.
-   - Identify stakeholders.
-   - Identify pain points.
-
-2. BRD Creation
-   - Generate structured BRD sections.
-   - Capture requirements.
-   - Capture assumptions.
-   - Capture dependencies.
-
-3. Remember previous conversation.
 """
-        }
-    ]
+}    ]
 
 # -------------------
 # FILE
 # -------------------
 
 LOG_FILE = "conversation_log.txt"
-
+if "question_count" not in st.session_state:
+    st.session_state.question_count = 0
+    
 # -------------------
 # UI
 # -------------------
 
 st.title(" Lets Discover Your Requirement. This is only for Adhoc ;) ")
+st.progress(min(st.session_state.question_count, 10) / 10)
 
+st.write(
+    f"Discovery Progress: "
+    f"{min(st.session_state.question_count,10)}/10"
+)
 # display history
 
 for msg in st.session_state.messages:
@@ -111,6 +115,7 @@ if prompt:
     )
 
     answer = response.choices[0].message.content
+    st.session_state.question_count += 1
 
     st.session_state.messages.append(
         {
@@ -141,45 +146,47 @@ if prompt:
 # -------------------
 # EXPORT BRD
 # -------------------
-
-if st.button("Generate BRD"):
-
-    brd_prompt = """
-Using the entire conversation,
-create a BRD with:
-1 Is this first time data requirement
-2 Did you check any powerBI dashboad 
-3 Problem Statement
-4 Business Requirements
-5 Who need this data in senior management
-6 What is ETA
-7 did you work closely with any Data Science Team
-8 Has anyone delivered this data in past
-9 Do you need PII information
-10 Success Criteria
-"""
-
-    response = client.chat.completions.create(
-        model=MODEL,
-        messages=
-        st.session_state.messages +
-        [
-            {
-                "role": "user",
-                "content": brd_prompt
-            }
-        ],
-        max_tokens=2000
-    )
-
-    brd = response.choices[0].message.content
-
-    st.subheader("Generated BRD")
-
-    st.write(brd)
-    st.download_button(
-        label=" Download BRD",
-        data=brd,
-        file_name="generated_brd.txt",
-        mime="text/plain"
-    )
+if st.session_state.question_count >= 10:
+    if st.button("Generate BRD"):
+        ...   
+    if st.button("Generate BRD"):
+    
+        brd_prompt = """
+    Using the entire conversation,
+    create a BRD with:
+    1 Is this first time data requirement
+    2 Did you check any powerBI dashboad 
+    3 Problem Statement
+    4 Business Requirements
+    5 Who need this data in senior management
+    6 What is ETA
+    7 did you work closely with any Data Science Team
+    8 Has anyone delivered this data in past
+    9 Do you need PII information
+    10 Success Criteria
+    """
+    
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages=
+            st.session_state.messages +
+            [
+                {
+                    "role": "user",
+                    "content": brd_prompt
+                }
+            ],
+            max_tokens=700
+        )
+    
+        brd = response.choices[0].message.content
+    
+        st.subheader("Generated BRD")
+    
+        st.write(brd)
+        st.download_button(
+            label=" Download BRD",
+            data=brd,
+            file_name="generated_brd.txt",
+            mime="text/plain"
+        )
