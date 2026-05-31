@@ -72,7 +72,7 @@ LOG_FILE = "conversation_log.txt"
 # UI
 # -------------------
 
-st.title(" Lets Discover Your Requrement")
+st.title(" Lets Discover Your Requirement. Hope this is an Adhoc ;) ")
 
 # display history
 
@@ -177,10 +177,9 @@ create a BRD with:
     st.subheader("Generated BRD")
 
     st.write(brd)
-
-    with open(
-        "generated_brd.txt",
-        "w",
-        encoding="utf-8"
-    ) as f:
-        f.write(brd)
+    st.download_button(
+        label=" Download BRD",
+        data=brd,
+        file_name="generated_brd.txt",
+        mime="text/plain"
+    )
