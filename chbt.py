@@ -14,7 +14,7 @@ MODEL = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key= API_KEY 
+    api_key=st.secrets["OPENROUTER_API_KEY"] 
 )
 
 # -------------------
