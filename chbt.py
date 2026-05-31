@@ -115,6 +115,19 @@ if prompt:
     )
 
     answer = response.choices[0].message.content
+    content = response.choices[0].message.content
+    
+    if isinstance(content, str):
+        answer = content
+    elif isinstance(content, list):
+        answer = " ".join(
+            item.get("text", "")
+            for item in content
+            if isinstance(item, dict)
+        )
+    else:
+        answer = str(content)
+        
     st.session_state.question_count += 1
 
     st.session_state.messages.append(
