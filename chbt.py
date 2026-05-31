@@ -72,7 +72,7 @@ LOG_FILE = "conversation_log.txt"
 # UI
 # -------------------
 
-st.title(" Lets Discover Your Requirement. Hope this is an Adhoc ;) ")
+st.title(" Lets Discover Your Requirement. This is only for Adhoc ;) ")
 
 # display history
 
