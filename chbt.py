@@ -45,6 +45,7 @@ Rules:
 
 - Ask only ONE question at a time.
 - Maximum 15 words.
+- Never answer with None.
 - Never ask the same question twice.
 - Infer answers whenever possible.
 - Maintain internal progress.
@@ -55,6 +56,9 @@ Rules:
       "Discovery Complete. Click Generate BRD."
 - Do not ask unnecessary follow-up questions.
 - Be concise.
+If all fields are collected, respond:
+  Discovery Complete. Click Generate BRD.
+- Maximum 20 words.
 """
 }    ]
 
