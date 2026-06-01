@@ -115,7 +115,7 @@ if prompt:
     response = client.chat.completions.create(
         model=MODEL,
         messages=st.session_state.messages[-20:],
-        max_tokens=100
+        max_tokens=300
     )
 
     answer = response.choices[0].message.content
