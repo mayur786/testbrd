@@ -8,9 +8,9 @@ import os
 # CONFIG
 # -------------------
 
-#MODEL = "poolside/laguna-m.1:free"
+MODEL = "google/gemini-3.5-flash"
 
-MODEL = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
+#MODEL = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
