@@ -75,7 +75,7 @@ if "question_count" not in st.session_state:
 # UI
 # -------------------
 
-st.title(" Lets Discover Your Requirement. This is only for Adhoc ;) ")
+st.title("Discover Insights ")
 st.progress(min(st.session_state.question_count, 10) / 10)
 
 st.write(
