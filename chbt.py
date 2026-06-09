@@ -2,7 +2,8 @@ import streamlit as st
 from openai import OpenAI
 from datetime import datetime
 
-MODEL = "google/gemini-3.5-flash"
+#MODEL = "google/gemini-3.5-flash"
+MODEL = "openai/gpt-4.1-mini"
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
