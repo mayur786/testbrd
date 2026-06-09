@@ -209,10 +209,7 @@ Do not continue the interview.
 
 Convert the collected answers into a formal BRD suitable for submission to Data Science, Analytics and Data Engineering teams.
 
-Where information is unavailable, state:
-"Not provided by requestor."
 
-Input:
 """
 
         response = client.chat.completions.create(
