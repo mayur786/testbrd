@@ -3,7 +3,7 @@ from openai import OpenAI
 from datetime import datetime
 
 #MODEL = "google/gemini-3.5-flash"
-MODEL = "openai/gpt-4.1-mini"
+MODEL = "stepfun/step-3.7-flash"
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
