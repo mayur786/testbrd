@@ -201,20 +201,18 @@ if st.session_state.question_count >= 10:
     if st.button("Generate BRD", key="generate_brd"):
 
         brd_prompt = """
-Using the entire conversation, create a BRD.
+Generate a detailed Business Requirements Document of at least 800 words.
 
-    1. Is this first time data requirement?
-    2. Did you check any Power BI dashboard?
-    3. Problem Statement
-    4. Business Requirements
-    5. Who needs this data in senior management?
-    6. What is the ETA?
-    7. Did you work closely with any Data Science Team?
-    8. Has anyone delivered this data in the past?
-    9. Do you need PII information?
-    10. Success Criteria
-If information is missing, write:
-Information Not Provided.
+Do not ask questions.
+
+Do not continue the interview.
+
+Convert the collected answers into a formal BRD suitable for submission to Data Science, Analytics and Data Engineering teams.
+
+Where information is unavailable, state:
+"Not provided by requestor."
+
+Input:
 """
 
         response = client.chat.completions.create(
