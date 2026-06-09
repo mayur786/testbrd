@@ -77,7 +77,7 @@ Ask the user the following questions.
 Rules:
 
 - Ask only ONE question at a time.
-- Maximum 30 words.
+- Maximum 40 words.
 - Never answer with None.
 - Never ask the same question twice.
 - Infer answers whenever possible.
@@ -91,7 +91,7 @@ Rules:
 - Be concise.
 If all fields are collected, respond:
   Discovery Complete. Click Generate BRD.
-- Maximum 20 words.
+
 """
 }    ]
 
