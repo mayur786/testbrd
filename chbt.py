@@ -43,7 +43,7 @@ if "question_count" not in st.session_state:
 
 LOG_FILE = "conversation_log.txt"
 
-st.title("Discover Insights")
+st.title("Business Data Request Portal")
 
 st.progress(min(st.session_state.question_count, 10) / 10)
 st.write(f"Discovery Progress: {min(st.session_state.question_count,10)}/10")
