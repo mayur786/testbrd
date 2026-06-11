@@ -28,7 +28,7 @@ Collect:
 
 Rules:
 - Ask only one question at a time.
-- Maximum 40 words.
+- minimum 30 words.
 - Never ask the same question twice.
 - Ask only for missing information.
 
