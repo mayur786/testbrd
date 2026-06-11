@@ -3,7 +3,7 @@ from openai import OpenAI
 from datetime import datetime
 
 #MODEL = "google/gemini-3.5-flash"
-MODEL = "poolside/laguna-m.1:free"
+MODEL = "deepseek/deepseek-chat"
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
