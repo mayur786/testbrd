@@ -27,7 +27,8 @@ Collect:
 8. Final consumers and regulatory usage.
 
 Rules:
-- Ask only one question at a time.
+- business category - wheels passenger vehicle, commercial vehicle, business loan, sme, leasing , fixed deposit
+ - Ask only one question at a time.
 - minimum 30 words.
 - Never ask the same question twice.
 - Ask only for missing information.
